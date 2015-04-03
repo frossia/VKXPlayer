@@ -1,0 +1,107 @@
+<html lang="" ng-app="app">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>VKPlayer-X</title>
+    <link href="styles/main.css" rel="stylesheet" />
+    <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+  </head>
+  <body ng-cloak="" ng-controller="ctrlPlaylist">
+    <div class="flex-wrapper">
+      <div class="flex-item" id="header">
+        <div class="flex-item player-header" ng-if="playingSong">
+          <div class="image" ng-style="{&#39;background-image&#39;: &#39;url(&#39; + playingSong.image + &#39;)&#39;}"></div>
+          <div class="gradient"></div>
+          <div class="texture"></div>
+          <div class="content">
+            <div class="container">
+              <h1>
+                {{playingSong.artist}}
+              </h1>
+              <h3>
+                {{playingSong.title}}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-item" id="content">
+        <div class="container">
+          <ul class="theme-list">
+            <li ng-class="song.playing ? &quot;playing&quot;:&quot;&quot;" ng-repeat="song in filteredSongs = (songs | filter:query)">
+              <div class="album-container" ng-class="song.playing ? &quot;on&quot;:&quot;&quot;" ng-click="play(song)">
+                <div class="colors"></div>
+                <div class="shadow"></div>
+                <div class="album-image" ng-style="{&#39;background-image&#39;: &#39;url(&#39; + song.image + &#39;)&#39;}"></div>
+                <div class="play-stop">
+                  <i class="fa fa-2x" ng-class="song.playing ? &quot;fa-pause&quot;:&quot;fa-play&quot;"></i>
+                </div>
+              </div>
+              <div class="info">
+                <div class="artist">
+                  {{song.artist}}
+                </div>
+                <div class="title">
+                  {{song.title}}
+                </div>
+              </div>
+              <div class="timeto">
+                <p>
+                  Playing: <b>{{song.playing}}</b>
+                </p>
+                <p>
+                  TimeTo:	 <b>{{song.currentTime}}</b>
+                </p>
+              </div>
+              <div class="time">
+                {{song.duration }}
+              </div>
+              <div class="add" ng-class="song.inPlaylist ? &quot;on&quot;:&quot;&quot;" ng-click="playlistAddRemove(song)">
+                <i class="fa fa-2x" ng-class="song.inPlaylist ? &quot;fa-circle&quot;:&quot;fa-circle-thin&quot;"></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex-item" id="footer">
+        
+      </div>
+      <div id="menu-icon" ng-class="advancedMenu ? &quot;on&quot;:&quot;&quot;">
+        <a href="#" ng-click="advancedMenu = !advancedMenu"><i class="fa fa-2x fa-bars"></i></a>
+      </div>
+      <div class="advanced-menu" ng-class="advancedMenu ? &quot;on&quot;:&quot;&quot;">
+        <div class="advanced-menu-container">
+          <hr class="d" />
+          <div class="block">
+            <div class="flex-row">
+              <span>Songs to load:</span><span class="count">{{songsToLoad}}</span>
+            </div>
+            <div class="flex-row">
+              <input max="1000" min="0" ng-model="songsToLoad" step="1" type="range" /><a class="btn" ng-click="updateJson()">Update</a>
+            </div>
+          </div>
+          <div class="block" ng-class="(songsLoadedPercents == 100) ? &quot;success&quot;:&quot;&quot; " ng-show="songsLoaded">
+            <div class="flex-row">
+              <span>Songs loaded:</span><span class="count">{{songsLoaded}} </span>
+            </div>
+            <div class="flex-row">
+              <div class="progress-bar">
+                <div class="bar" ng-style="{&#39;width&#39;: &#39; &#39; + songsLoadedPercents + &#39;%&#39;}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="block">
+            <input ng-class="filteredSongs.length ? &quot;&quot;:&quot;not-find&quot; " ng-model="query" placeholder="Search..." type="text" />
+          </div>
+          <hr class="l" />
+        </div>
+      </div>
+    </div>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-animate.min.js"></script>
+    <script src="js/lib/angular-resource.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+<p>
+  playProgress: {{currentTime}}
+</p>
+<input max="100" min="0" ng-model="currentTime" type="range" />
+<audio controls="" directive-current-time="currentTime" embed-src="{{playingSong.url}}" song="playingSong"></audio>
